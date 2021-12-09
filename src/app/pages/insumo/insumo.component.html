@@ -1,0 +1,96 @@
+<mat-card>
+  <mat-card-title>Novo Insumo</mat-card-title>
+  <form #frm="ngForm" method="post" (ngSubmit)="cadastrarInsumo(frm)">
+    <mat-form-field>
+      <input
+        matInput
+        id="produto"
+        name="produto"
+        type="number"
+        placeholder="ID do Produto"
+        [(ngModel)]="insumo.produto"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        id="materiaPrima"
+        name="materiaPrima"
+        type="number"
+        placeholder="ID Materia Prima"
+        [(ngModel)]="insumo.materiaPrima"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        id="quantidadeNecessaria"
+        name="quantidadeNecessaria"
+        type="number"
+        placeholder="Quantidade Necessaria"
+        [(ngModel)]="insumo.quantidadeNecessaria"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="frm.invalid"
+      class="botao-insumo"
+      type="submit"
+    >
+      Cadastrar
+    </button>
+  </form>
+
+  <h2>Lista</h2>
+
+  <table mat-table [dataSource]="insumos" class="mat-elevation-z8">
+    <ng-container matColumnDef="ID">
+      <th mat-header-cell *matHeaderCellDef>ID.</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Produto">
+      <th mat-header-cell *matHeaderCellDef>Produto</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.produto.id }} - {{ element.produto.nome }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Materia Prima">
+      <th mat-header-cell *matHeaderCellDef>Materia Prima</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.materiaPrima.id }} - {{ element.materiaPrima.nome }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Quantidade Necessaria">
+      <th mat-header-cell *matHeaderCellDef>Quantidade Necessaria</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.quantidadeNecessaria }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Ações">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="deletar(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="editar(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</mat-card>
